@@ -1,15 +1,21 @@
 import { useState } from 'react'
 
 import './App.css'
-
-function App() {
-  
-  return (
-    <div>App</div>
-  )
+import Header from './shared/header/header'
+import Login from './shared/login/loginFalso'
+import Footer from './shared/footer/footer'
+export default function App() {
+    return (
+      <div>
+        <Header />
+        <Login />
+        <div>App</div>
+        <Footer />
+      </div>
+    );
 }
 
-export default App
+
 
 /*
 import "@/styles/globals.css";

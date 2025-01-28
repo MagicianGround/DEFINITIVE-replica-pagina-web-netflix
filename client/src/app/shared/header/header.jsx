@@ -1,10 +1,10 @@
 import React from "react";
-import './headerStyles.css';
+import "./HeaderStyles.module.css";
 
-export default function Header(/*{ onLoginClick }*/) {
+export default function Header() {
   return (
     <header className="bg-gradient-to-b from-black to-transparent">
-      <a href="">
+      <a href="Netflix.com">
         <img src="Logo-Netflix.png" alt="Logo" width="95px" />
       </a>
       <nav>
@@ -12,7 +12,7 @@ export default function Header(/*{ onLoginClick }*/) {
           <option value="es">Español</option>
           <option value="en">English</option>
         </select>
-        <button id="IniciarSesion" >
+        <button className="IniciarSesion">
           <a href="">Iniciar Sesión</a>
         </button>
       </nav>
