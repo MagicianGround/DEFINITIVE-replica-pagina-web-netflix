@@ -17,5 +17,7 @@
   "bugs": {
     "url": "https://github.com/MagicianTech/DEFINITIVE-replica-pagina-web-netflix/issues"
   },
-  "homepage": "https://github.com/MagicianTech/DEFINITIVE-replica-pagina-web-netflix#readme"
+  "homepage": "https://github.com/MagicianTech/DEFINITIVE-replica-pagina-web-netflix#readme",
+  "dependencies": {
+  }
 }
