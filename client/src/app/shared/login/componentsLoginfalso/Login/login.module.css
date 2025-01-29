@@ -10,8 +10,10 @@
   width: 100%;
   border-radius: 10px;
   position: fixed;
-  margin: 0 auto; /* Centra horizontalmente */
-  transform: translateY(20%); /* Ajusta para centrar verticalmente */
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); /* Centra horizontal y verticalmente */
+  z-index: 1; /* Ajusta el z-index según sea necesario */
 }
 
 .conteinerLogin {
