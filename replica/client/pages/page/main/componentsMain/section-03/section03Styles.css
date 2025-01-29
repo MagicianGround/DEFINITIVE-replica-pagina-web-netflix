@@ -1,0 +1,76 @@
+.mx-auto {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.max-w-4xl {
+  max-width: 56rem;
+}
+
+h2 {
+  font-size: 30px;
+  text-align: center;
+  padding: 20px;
+}
+
+.bg-zinc-800 {
+  background-color: #27272a;
+}
+
+.bg-zinc-800 button {
+  background-color: #27272a;
+  border: none;
+  color: white;
+  font-size: 16px;
+  display: flex; /* Hace que el botón sea un contenedor de bloque */
+  justify-content: space-between; /* Mantiene el texto y el signo al extremo */
+  align-items: center; /* Centra verticalmente los elementos dentro del botón */
+  width: 100%; /* Hace que el botón ocupe todo el ancho disponible */
+  padding: 1rem 1.5rem; /* Ajusta el padding del botón */
+  cursor: pointer; /* Cambia el cursor al pasar por encima */
+  transition: background-color 0.3s ease; /* Transición para el hover */
+}
+
+.bg-zinc-800 button:hover {
+  background-color: #3a3a3c; /* Cambia el color al pasar el mouse */
+}
+
+.px-6 {
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
+
+.py-4 {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+
+.w-full {
+  width: 100%;
+}
+
+.text-left {
+  text-align: left;
+}
+
+.flex {
+  display: flex;
+}
+
+.justify-between {
+  justify-content: space-between;
+}
+
+.items-center {
+  align-items: center;
+}
+
+div.px-6.py-4 {
+  transition: max-height 0.3s ease-in-out;
+  overflow: hidden;
+  max-height: 0;
+}
+
+.bg-zinc-800 div.px-6.py-4 {
+  max-height: 500px; /* Ajusta este valor según la altura del contenido */
+}

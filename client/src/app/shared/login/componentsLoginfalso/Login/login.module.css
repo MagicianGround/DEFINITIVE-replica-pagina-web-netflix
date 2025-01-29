@@ -9,6 +9,9 @@
   max-width: 28rem;
   width: 100%;
   border-radius: 10px;
+  position: fixed;
+  margin: 0 auto; /* Centra horizontalmente */
+  transform: translateY(20%); /* Ajusta para centrar verticalmente */
 }
 
 .conteinerLogin {

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Login from "./componentsLoginfalso/Login";
 import TarjetaPago from "./componentsLoginfalso/Tarjeta"; // Importa tu formulario de tarjeta
-import './stylesLoginFalso.module.css';
+import './Iniciar.module.css';
 
 export default function LoginFalso() {
   const [isLoginForm, setIsLoginForm] = useState(true); // Estado para alternar formularios
