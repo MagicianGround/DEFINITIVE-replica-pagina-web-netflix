@@ -1,6 +1,12 @@
 .section {
+    margin-top: 5%;
+    margin-bottom: 5%;
     padding: 2rem;
-    background-color: #f0f0f0;
+    background-color: #000000;
+}
+
+.section h2{
+    color: #fff;
 }
 
 .container {
@@ -24,10 +30,15 @@
 }
 
 .card {
-    background-color: #fff;
+    background-color: rgb(24, 24, 27);
     padding: 2rem;
     border-radius: 8px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    color: #eaeaea;
+}
+
+.card h3{
+    color: #fff;
 }
 
 .iconWrapper {
