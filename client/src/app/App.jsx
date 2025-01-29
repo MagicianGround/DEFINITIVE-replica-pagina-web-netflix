@@ -13,8 +13,8 @@ export default function App() {
       <>
         <Header />
         <Login />
-        <Main />
         <TarjetaPago />
+        <Main />
         <div>App</div>
         <Footer />
       </>
