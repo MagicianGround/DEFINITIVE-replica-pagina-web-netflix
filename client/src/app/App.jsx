@@ -15,7 +15,6 @@ export default function App() {
         <Login />
         <TarjetaPago />
         <Main />
-        <div>App</div>
         <Footer />
       </>
     );

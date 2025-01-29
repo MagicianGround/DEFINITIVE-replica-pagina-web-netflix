@@ -1,19 +1,23 @@
 .main {
-    height: 100vh; 
-    background-color: #f0f0f0;
+    height: 100%;
 }
 
-.background-main-01 {
+.backgroundMain {
     background: url('/UY-es-20241209-TRIFECTA-perspective_5e362a75-175e-4ea8-9e58-eac64d92f719_large.jpg.jpeg');
     background-size: cover;
     background-position: center;
     width: 100%;
     height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-.inner-container {
+.innerContainer {
     background-color: rgba(0, 0, 0, 0.6);
     width: 100%;
     height: 100vh;
     padding-top: 30vh;
+    justify-content: center;
+    align-items: center;
 }
