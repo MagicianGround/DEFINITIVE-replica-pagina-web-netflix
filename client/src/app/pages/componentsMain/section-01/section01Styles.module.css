@@ -1,0 +1,104 @@
+.section01{
+    margin: auto;
+    width: 60%;
+    height: 600px;
+    align-items: center;
+    text-align: center;
+    font-weight: 700;
+    color: #fff;
+}
+
+.section01 h1{
+    font-size: 3rem;
+    
+    margin-bottom: 4%;
+}
+
+.section01 p{
+    font-size: 1.25rem;
+    
+    margin-bottom: 5%;
+} 
+
+.content-email{
+    margin-left: 10%;
+    margin-right: 10%;
+}
+
+.content-email p{
+    font-size: 1.10rem;
+}
+
+.content-email button{
+    border-radius: 5px;
+    background-color: rgb(220 38 38/var(--tw-bg-opacity,1));
+    padding: 0%;
+    height: 38px;
+    width: 25%;
+    margin-left: 1%;
+    border: none; /* Elimina el borde predeterminado del botón */
+}
+
+.content-email  a {
+    border-radius: 5px;
+    background-color: rgb(220 38 38/var(--tw-bg-opacity,1));
+    color: white; /* Color del texto del enlace */
+    text-decoration: none; /* Elimina el subrayado del enlace */
+    display: block; /* Hace que el enlace ocupe todo el espacio disponible dentro del botón */
+    width: 100%; /* Hace que el enlace ocupe el ancho del botón */
+    height: 100%; /* Hace que el enlace ocupe la altura del botón */
+    line-height: 38px; /* Ajusta la altura de la línea para que el texto quede centrado verticalmente (ajusta según el tamaño del botón) */
+}
+
+.content-email svg{
+    position: relative;
+    top: 6;
+    left: 5;
+}
+
+.content-email input{
+    list-style: none;
+    border:  none;
+    height: 40px;
+    width: 63%;
+    border-radius: 5px;
+    background-color: rgb(0,0,0,0.6);
+    border: #e5e7eb;
+    padding-left: 4%;
+    font-size: larger;
+    color: #fff;
+}
+
+.content-email input::placeholder{
+    padding-left: 1%;
+    font-size: 15px;
+    color: rgb(167, 167, 167);
+}
+
+@media (max-width: 900px){
+    .section01{
+        width: 100%;
+    }
+    .content-email input{
+        width: 70%;
+    }
+
+    .content-email{
+        margin-left: 5%;
+        margin-right: 5%;
+    }
+}
+
+@media (max-width: 380px){
+    .section01{
+        width: 100%;
+    }
+    .content-email input{
+        width: 70%;
+    }
+
+    .content-email{
+        margin-left: 0%;
+        margin-right: 0%;
+    }
+}
