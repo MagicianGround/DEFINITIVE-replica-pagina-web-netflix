@@ -8,11 +8,15 @@ import Section03 from './componentsMain/section-03/section-03';
 
 const Main = () => {
   return (
-    <>
-      <Section01 />
-      <Section02 />
-      <Section03 />
-    </>
+    <div className='main'>
+      <div className='background-main-01'>
+        <div className='inner-container'>
+          <Section01 />
+        </div>
+          <Section02 />
+          <Section03 />
+      </div>
+    </div>
   );
 };
 

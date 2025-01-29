@@ -1,76 +1,69 @@
-.mx-auto {
-  margin-left: auto;
-  margin-right: auto;
+.section {
+  padding: 2rem;
+  background-color: #f7f7f7;
 }
 
-.max-w-4xl {
-  max-width: 56rem;
-}
-
-h2 {
-  font-size: 30px;
+.title {
+  font-size: 2rem;
+  font-weight: bold;
   text-align: center;
-  padding: 20px;
+  margin-bottom: 1.5rem;
 }
 
-.bg-zinc-800 {
+.faqContainer {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+/* Contenedor de cada item de la FAQ */
+.faqItem {
   background-color: #27272a;
-}
-
-.bg-zinc-800 button {
-  background-color: #27272a;
-  border: none;
-  color: white;
-  font-size: 16px;
-  display: flex; /* Hace que el botón sea un contenedor de bloque */
-  justify-content: space-between; /* Mantiene el texto y el signo al extremo */
-  align-items: center; /* Centra verticalmente los elementos dentro del botón */
-  width: 100%; /* Hace que el botón ocupe todo el ancho disponible */
-  padding: 1rem 1.5rem; /* Ajusta el padding del botón */
-  cursor: pointer; /* Cambia el cursor al pasar por encima */
-  transition: background-color 0.3s ease; /* Transición para el hover */
-}
-
-.bg-zinc-800 button:hover {
-  background-color: #3a3a3c; /* Cambia el color al pasar el mouse */
-}
-
-.px-6 {
-  padding-left: 1.5rem;
-  padding-right: 1.5rem;
-}
-
-.py-4 {
-  padding-top: 1rem;
-  padding-bottom: 1rem;
-}
-
-.w-full {
-  width: 100%;
-}
-
-.text-left {
-  text-align: left;
-}
-
-.flex {
-  display: flex;
-}
-
-.justify-between {
-  justify-content: space-between;
-}
-
-.items-center {
-  align-items: center;
-}
-
-div.px-6.py-4 {
-  transition: max-height 0.3s ease-in-out;
+  margin-bottom: 1rem;
+  border-radius: 0.5rem;
   overflow: hidden;
-  max-height: 0;
 }
 
-.bg-zinc-800 div.px-6.py-4 {
-  max-height: 500px; /* Ajusta este valor según la altura del contenido */
+.faqButton {
+  background-color: #27272a;
+  color: white;
+  font-size: 1.2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.5rem;
+  width: 100%;
+  cursor: pointer;
+  border: none;
+  transition: background-color 0.3s ease;
+}
+
+.faqButton:hover {
+  background-color: #3a3a3c;
+}
+
+.faqButton span {
+  font-size: 1.5rem;
+}
+
+/* Animación de la respuesta */
+.faqAnswer {
+  max-height: 0;
+  overflow: hidden;
+  padding: 0 1rem;
+  transition: max-height 0.3s ease-in-out, padding 0.3s ease-in-out;
+}
+
+.faqAnswerVisible {
+  max-height: 500px; /* Ajusta este valor según el contenido */
+  padding: 1rem;
+  transition: max-height 0.3s ease-in-out, padding 0.3s ease-in-out;
+}
+
+/* Estilos de accesibilidad */
+.faqButton[aria-expanded="true"] {
+  background-color: #3a3a3c;
+}
+
+.faqButton[aria-expanded="false"] {
+  background-color: #27272a;
 }
