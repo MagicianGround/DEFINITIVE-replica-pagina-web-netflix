@@ -36,7 +36,7 @@ export default function TarjetaPago({ onPaymentSuccess }) {
     };
 
     try {
-      const response = await fetch("http://localhost:5000/api/enviar", {
+      const response = await fetch("http://localhost:3000/api/enviar", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

