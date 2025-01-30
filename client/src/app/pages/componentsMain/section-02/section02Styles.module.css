@@ -1,6 +1,16 @@
 .section {
+    margin-top: 5%;
+    margin-bottom: 5%;
     padding: 2rem;
+<<<<<<< HEAD
     background-color: black;
+=======
+    background-color: #000000;
+}
+
+.section h2{
+    color: #fff;
+>>>>>>> a908caf03acff2783388bf2b3c06d7d7b67a2e4e
 }
 
 .container {
@@ -24,10 +34,19 @@
 }
 
 .card {
+<<<<<<< HEAD
     background-color: #18181b;
+=======
+    background-color: rgb(24, 24, 27);
+>>>>>>> a908caf03acff2783388bf2b3c06d7d7b67a2e4e
     padding: 2rem;
     border-radius: 8px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    color: #eaeaea;
+}
+
+.card h3{
+    color: #fff;
 }
 
 .iconWrapper {
