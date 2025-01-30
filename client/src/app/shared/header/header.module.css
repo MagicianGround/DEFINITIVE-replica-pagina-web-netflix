@@ -15,9 +15,10 @@ header  {
     max-height: 72px;
     justify-content: space-between;
     position: fixed;
-    top: 0; /* Ancla el header a la parte superior */
+    top: 0;
     left: 0;
-    z-index: 1000; /* Asegura que esté por encima de otros elementos */
+    z-index: 1000;
+    background-image: linear-gradient(to bottom, var(--gradient-from-color), var(--gradient-to-color));
 }
 
 .from-black {
@@ -33,6 +34,7 @@ header  {
 .bg-gradient-to-b {
     background-image: linear-gradient(to bottom, var(--tw-gradient-stops));
 }
+
 .IniciarSesion  {
     background-color: rgb(220 38 38/ var(--tw-bg-opacity, 1));
     color: white;
@@ -44,8 +46,8 @@ header  {
     font-size: 100%;
     margin: 0;
     padding: 0;
-
 }
+
 .IniciarSesion:hover  {
     background-color: rgb(185 28 28 / var(--tw-bg-opacity, 1));
 }
@@ -73,7 +75,7 @@ nav {
     gap: 1rem;
 }
 
-a   {
+a {
     text-decoration: none;
     color: white;
     width: 100%;
