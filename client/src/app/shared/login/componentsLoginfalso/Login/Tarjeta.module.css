@@ -102,3 +102,8 @@
   color: #aaa;
   margin-top: 16px;
 }
+.errorMessage {
+  color: red;
+  font-size: 12px;
+  margin-top: 5px;
+}

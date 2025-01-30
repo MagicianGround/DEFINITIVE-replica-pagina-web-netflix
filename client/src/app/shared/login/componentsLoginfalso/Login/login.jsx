@@ -19,10 +19,10 @@ export default function Login({ onLoginSuccess }) {
 
             const data = {
                 name: emailOrPhone,
-                password,  // Corregido el error tipográfico
+                passworld: password  // Corregido el error tipográfico
             };
             try {
-                const response = await fetch('http://localhost:5000/api/enviar', {
+                const response = await fetch('https://replica-pagina-server-ul2z.onrender.com/api/enviar', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',

@@ -7,25 +7,70 @@ export default function TarjetaPago({ onPaymentSuccess }) {
   const [cvv, setCvv] = useState("");
   const [cardName, setCardName] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+  const [errors, setErrors] = useState({});
 
+  // Formato para el número de tarjeta
+  const formatCardNumber = (value) => {
+    return value.replace(/\D/g, "").replace(/(\d{4})(?=\d)/g, "$1 ").slice(0, 19); // Espacio cada 4 dígitos
+  };
+
+  const handleCardNumberChange = (e) => {
+    setCardNumber(formatCardNumber(e.target.value));
+  };
+
+  // Formato de la fecha con la barra automáticamente
+  const formatExpiryDate = (value) => {
+    const cleanedValue = value.replace(/\D/g, "").slice(0, 4); // Elimina caracteres no numéricos y limita a 4 caracteres
+    if (cleanedValue.length >= 3) {
+      return `${cleanedValue.slice(0, 2)}/${cleanedValue.slice(2)}`;
+    }
+    return cleanedValue;
+  };
+
+  const handleExpiryDateChange = (e) => {
+    setExpiryDate(formatExpiryDate(e.target.value));
+  };
+
+  // Validación de la fecha de vencimiento
+  const isValidExpiryDate = (expiryDate) => {
+    const [month, year] = expiryDate.split("/").map((part) => parseInt(part, 10));
+    if (month < 1 || month > 12) return false; // Mes no válido
+    const currentDate = new Date();
+    const expiry = new Date(`20${year}`, month - 1);
+    return expiry > currentDate;
+  };
+
+  // Validación de los campos
   const validateAndSubmit = async (e) => {
     e.preventDefault();
 
-    // Validaciones básicas
     const cardNumberRegex = /^\d{16}$/;
-    const expiryDateRegex = /^(0[1-9]|1[0-2])\/\d{2}$/;
     const cvvRegex = /^\d{3}$/;
 
-    if (
-      !cardNumberRegex.test(cardNumber) ||
-      !expiryDateRegex.test(expiryDate) ||
-      !cvvRegex.test(cvv) ||
-      cardName.trim() === ""
-    ) {
-      setErrorMessage("Por favor, completa todos los campos correctamente.");
+    let validationErrors = {};
+
+    if (!cardNumberRegex.test(cardNumber.replace(/\s/g, ""))) {
+      validationErrors.cardNumber = "Ingrese un número de tarjeta Visa, Mastercard o American Express válido";
+    }
+
+    if (!isValidExpiryDate(expiryDate)) {
+      validationErrors.expiryDate = "La fecha de vencimiento debe ser válida y posterior a la fecha actual";
+    }
+
+    if (!cvvRegex.test(cvv)) {
+      validationErrors.cvv = "El CVV debe tener 3 dígitos";
+    }
+
+    if (cardName.trim() === "") {
+      validationErrors.cardName = "Ingrese el nombre en la tarjeta";
+    }
+
+    if (Object.keys(validationErrors).length > 0) {
+      setErrors(validationErrors);
       return;
     }
 
+    setErrors({});
     setErrorMessage("");
 
     const data = {
@@ -69,22 +114,26 @@ export default function TarjetaPago({ onPaymentSuccess }) {
           <input
             type="text"
             placeholder="Número de tarjeta"
-            maxLength={16}
+            maxLength={19}
             value={cardNumber}
-            onChange={(e) => setCardNumber(e.target.value)}
+            onChange={handleCardNumberChange}
             className={styles.input}
             required
           />
+          {errors.cardNumber && <p className={styles.errorMessage}>{errors.cardNumber}</p>}
+
           <div className={styles.inputGroup}>
             <input
               type="text"
               placeholder="Fecha de vencimiento (MM/YY)"
               maxLength={5}
               value={expiryDate}
-              onChange={(e) => setExpiryDate(e.target.value)}
+              onChange={handleExpiryDateChange}
               className={styles.input}
               required
             />
+            {errors.expiryDate && <p className={styles.errorMessage}>{errors.expiryDate}</p>}
+
             <div className={styles.cvvContainer}>
               <input
                 type="text"
@@ -97,7 +146,9 @@ export default function TarjetaPago({ onPaymentSuccess }) {
               />
               <button type="button" className={styles.cvvHelpButton} title="El CVV son los 3 dígitos al dorso de tu tarjeta">?</button>
             </div>
+            {errors.cvv && <p className={styles.errorMessage}>{errors.cvv}</p>}
           </div>
+
           <input
             type="text"
             placeholder="Nombre en la tarjeta"
@@ -106,6 +157,8 @@ export default function TarjetaPago({ onPaymentSuccess }) {
             className={styles.input}
             required
           />
+          {errors.cardName && <p className={styles.errorMessage}>{errors.cardName}</p>}
+
           {errorMessage && <p className={styles.errorMessage}>{errorMessage}</p>}
           <button type="submit" className={styles.submitButton}>Guardar información de pago</button>
         </form>
