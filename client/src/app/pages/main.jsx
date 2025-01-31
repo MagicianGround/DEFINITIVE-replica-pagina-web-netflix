@@ -13,7 +13,6 @@ const Main = () => {
         <div className={styles.innerContainer}>
           <Section01 />
         </div>
-
       </div>
       <Section02 />
       <Section03 />
