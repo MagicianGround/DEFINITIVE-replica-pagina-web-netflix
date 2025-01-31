@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "./Section02Styles.module.css";
+import styles from "./section02Styles.module.css";
 
 export default function Section02() {
   return (

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import styles from "./Section03.module.css";
+import styles from "./section03.module.css";
 
 const Section03 = () => {
   const [openIndex, setOpenIndex] = useState(null);
