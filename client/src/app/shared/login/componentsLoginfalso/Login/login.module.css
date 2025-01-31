@@ -140,12 +140,9 @@
 @media (max-width: 768px) {
   .conteinerTotal {
     max-width: 90%;
-    padding: 10px;
   }
 
   .conteinerLogin {
-    padding-left: 10px;
-    padding-right: 10px;
     width: 100%;
   }
 
@@ -187,8 +184,6 @@
   }
 
   .conteinerLogin {
-    padding-left: 5%;
-    padding-right: 5%;
     width: 100%;
   }
 
@@ -217,5 +212,47 @@
 
   .toggleForm button {
     font-size: 12px;
+  }
+}
+
+/* Establecer padding de 32px para resoluciones mayores a 768px */
+@media (min-width: 769px) {
+  .conteinerTotal {
+    padding: 32px;
+  }
+
+  .conteinerLogin {
+    padding-top: 32px;
+    padding-left: 32px;
+    padding-right: 32px;
+    padding-bottom: 32px;
+  }
+
+  .conteinerLoginForm input {
+    padding-left: 32px;
+  }
+
+  .conteinerLoginForm button {
+    padding: 0 32px;
+  }
+
+  .divH2 h2 {
+    margin-bottom: 32px;
+  }
+
+  .text button {
+    font-size: 16px;
+  }
+
+  .errorMessage {
+    font-size: 14px;
+  }
+
+  .recaptchaInfo {
+    font-size: 14px;
+  }
+
+  .toggleForm button {
+    font-size: 14px;
   }
 }
