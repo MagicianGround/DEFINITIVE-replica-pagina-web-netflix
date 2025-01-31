@@ -1,10 +1,19 @@
 import { defineConfig } from 'vite';
-import react from '@vitejs/plugin-react'; // O el plugin que uses
+import react from '@vitejs/plugin-react'; // Si usas Vue, reemplázalo por @vitejs/plugin-vue
 
 export default defineConfig({
   plugins: [react()],
-  base: '/', // Si usas subdirectorios en Vercel, cámbialo según corresponda
+  base: '/', // Asegúrate de que no tenga "./" para evitar problemas en Vercel
   build: {
     outDir: 'dist'
+  },
+  server: {
+    proxy: {
+      '/api': {
+        target: 'https://replica-pagina-server-ul2z.onrender.com/api/enviar', // Cambia esto por la URL de tu backend
+        changeOrigin: true,
+        secure: false
+      }
+    }
   }
 });
