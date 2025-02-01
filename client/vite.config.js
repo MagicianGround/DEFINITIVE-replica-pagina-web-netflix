@@ -3,7 +3,7 @@ import react from '@vitejs/plugin-react'; // Si usas Vue, reemplázalo por @vite
 
 export default defineConfig({
   plugins: [react()],
-  base: '/client', // Asegúrate de que no tenga "./" para evitar problemas en Vercel
+  base: '/client/', // Asegúrate de que no tenga "./" para evitar problemas en Vercel
   build: {
     outDir: 'dist',
     sourcemap: true
