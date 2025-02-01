@@ -5,7 +5,8 @@ export default defineConfig({
   plugins: [react()],
   base: '/', // Asegúrate de que no tenga "./" para evitar problemas en Vercel
   build: {
-    outDir: 'dist'
+    outDir: 'dist',
+    sourcemap: true
   },
   server: {
     proxy: {
