@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors');
 
 const EvioDeDatos = require('./routes/EnvioDeDatosUsuari')
+const login = require('./routes/login')
 
 const app = express();
 
@@ -12,6 +13,8 @@ app.use(express.json());
 
 
 app.use('/api', EvioDeDatos)
+app.use('/api', login)
+
 
 app.use('/', (req, res) => {
     res.send('Bienvenido al Backend de REEPLICA PAGINA')
