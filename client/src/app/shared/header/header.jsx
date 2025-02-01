@@ -7,13 +7,13 @@ export default function Header() {
       <a href="Netflix.com">
         <img src="Logo-Netflix.png" alt="Logo" width="95px" />
       </a>
-      <nav className={styles.nav}>
+      <nav className={styles.navHeader}>
         <select name="Dropdown" id="Lenguaje" className={styles.select}>
           <option value="es">Español</option>
           <option value="en">English</option>
         </select>
         <button className={styles.IniciarSesion}>
-          <a href="">Iniciar Sesión</a>
+          <a href="" className={styles.aHeader}>Iniciar sesión</a>
         </button>
       </nav>
     </header>

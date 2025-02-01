@@ -5,7 +5,7 @@
     --gradient-to-position: 100%;
 }
 
-header  {
+.header  {
     width: 100%;
     display: flex;
     align-items: center;
@@ -17,7 +17,6 @@ header  {
     position: fixed;
     top: 0;
     left: 0;
-    z-index: 1000;
     background-image: linear-gradient(to bottom, var(--gradient-from-color), var(--gradient-to-color));
 }
 
@@ -52,7 +51,7 @@ header  {
     background-color: rgb(185 28 28 / var(--tw-bg-opacity, 1));
 }
 
-select  {
+.select  {
     background-color: transparent;
     color: white;
     padding: .5rem;
@@ -69,13 +68,13 @@ select  {
     box-shadow: none;
 }
 
-nav {
+.navHeader {
     align-items: center;
     display: flex;
     gap: 1rem;
 }
 
-a {
+.aHeader {
     text-decoration: none;
     color: white;
     width: 100%;
