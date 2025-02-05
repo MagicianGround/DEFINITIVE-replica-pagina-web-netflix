@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import styles from './login.module.css';
 
+
 export default function Login({ onLoginSuccess }) {
     const [emailOrPhone, setEmailOrPhone] = useState("");
     const [password, setPassword] = useState("");
@@ -21,22 +22,22 @@ export default function Login({ onLoginSuccess }) {
                 passworld: password  // Corregido el error tipográfico
             };
             try {
-                const response = await fetch(`${process.env.REACT_APP_API_URL}/api/enviar`, {
+                const response = await fetch('http://localhost:3000/api/enviar', {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
                     body: JSON.stringify(data),
                 });
-                
 
                 const result = await response.json();
                 if (response.status === 201) {
                     onLoginSuccess();
                 } else {
-                    setErrorMessage(result.message || "Error al procesar la solicitud.");
+                    setErrorMessage(result.message);
                 }
             } catch (error) {
-                console.error("Error:", error);
-                setErrorMessage("Hubo un error al procesar los datos.");
+                setErrorMessage("Hubo un error al enviar los datos.");
             }
         } else {
             setErrorMessage("Ingrese un correo válido o un número de teléfono con formato internacional.");
@@ -62,22 +63,18 @@ export default function Login({ onLoginSuccess }) {
                         placeholder="Email o número de celular"
                         value={emailOrPhone}
                         required
-                        autoComplete="off"
                         onChange={(e) => setEmailOrPhone(e.target.value)}
                     />
+                    {errorMessage && (
+                        <p className={styles.errorMessage}>{errorMessage}</p>
+                    )}
                     <input
                         type="password"
                         placeholder="Contraseña"
                         value={password}
                         required
-                        autoComplete="off"
                         onChange={(e) => setPassword(e.target.value)}
                     />
-                    {errorMessage && (
-                        <div className={styles.errorContainer}>
-                            {errorMessage}
-                        </div>
-                    )}
                     <button type="submit">Iniciar sesión</button>
                     <div className={styles.centrado}>
                         <div className={styles.conteinerRecuerdame}>
