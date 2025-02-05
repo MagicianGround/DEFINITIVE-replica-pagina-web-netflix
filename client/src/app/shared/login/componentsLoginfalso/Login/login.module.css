@@ -1,8 +1,10 @@
 .PCELMDPDIS {
   background-color: rgb(220 38 38 / var(--tw-bg-opacity, 1));
-  padding: 8px 16px;
+  padding: 12px 16px; /* Un poco más de padding para que luzca mejor */
   text-align: center;
+  width: 100%; /* Ocupa todo el ancho del container */
 }
+
 
 .conteinerTotal {
   background-color: rgba(0, 0, 0, 1); /* Menos transparencia */
@@ -217,9 +219,7 @@
 
 /* Establecer padding de 32px para resoluciones mayores a 768px */
 @media (min-width: 769px) {
-  .conteinerTotal {
-    padding: 32px;
-  }
+
 
   .conteinerLogin {
     padding-top: 32px;
