@@ -1,103 +1,90 @@
-
 .section01 {
-    margin: auto;
-    width: 60%;
-    height: 600px;
-    align-items: center;
     text-align: center;
-    font-weight: 700;
+    padding: 3rem 1rem;
     color: #fff;
 }
 
-.section01 h1 {
-    font-size: 3rem;
-    margin-bottom: 4%;
+.title {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
 }
 
-.section01 p {
-    font-size: 1.25rem;
-    margin-bottom: 5%;
+.subtitle {
+    font-size: 1.2rem;
+    margin-bottom: 1.5rem;
+    color: #ccc;
 }
 
-.content-email {
-    margin-left: 10%;
-    margin-right: 10%;
+.contentEmail {
+    max-width: 500px;
+    margin: 0 auto;
 }
 
-.content-email p {
-    font-size: 1.10rem;
+.description {
+    font-size: 1rem;
+    margin-bottom: 1rem;
+    color: #ccc;
 }
 
-.content-email button {
-    border-radius: 5px;
-    background-color: rgb(220 38 38/var(--tw-bg-opacity,1));
-    padding: 0%;
-    height: 38px;
-    width: 25%;
-    margin-left: 1%;
+.form {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap; /* Se adapta en pantallas pequeñas */
+}
+
+.input {
+    background-color: rgba(0, 0, 0, 0.6);
     border: none;
-}
-
-.content-email a {
-    border-radius: 5px;
-    background-color: rgb(220 38 38/var(--tw-bg-opacity,1));
-    color: white;
-    text-decoration: none;
-    display: block;
-    width: 100%;
-    height: 100%;
-    line-height: 38px;
-}
-
-.content-email svg {
-    position: relative;
-    top: 6;
-    left: 5;
-}
-
-.content-email input {
-    list-style: none;
-    border: none;
-    height: 40px;
-    width: 63%;
-    border-radius: 5px;
-    background-color: rgb(0, 0, 0, 0.6);
-    border: #e5e7eb;
-    padding-left: 4%;
-    font-size: larger;
+    padding: 0.75rem 1rem;
+    border-radius: 4px;
+    flex-grow: 1;
+    min-width: 200px; /* Para que no se haga muy pequeño */
     color: #fff;
+    outline: none;
+    transition: border 0.3s ease;
 }
 
-.content-email input::placeholder {
-    padding-left: 1%;
-    font-size: 15px;
-    color: rgb(167, 167, 167);
+.input::placeholder {
+    color: #aaa;
 }
 
-@media (max-width: 900px) {
-    .section01 {
+.input:focus {
+    border-color: #e50914;
+}
+
+.button {
+    background-color: #e50914;
+    color: #fff;
+    padding: 8px 16px;
+    font-size: 16px;
+    border: none;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.button:hover {
+    background-color: #b81d24;
+}
+
+.icon {
+    margin-left: 4px;
+    stroke: currentColor;
+}
+
+@media (max-width: 600px) {
+    .form {
+        flex-direction: column;
+    }
+
+    .button {
         width: 100%;
-    }
-    .content-email input {
-        width: 70%;
-    }
-
-    .content-email {
-        margin-left: 5%;
-        margin-right: 5%;
-    }
-}
-
-@media (max-width: 380px) {
-    .section01 {
-        width: 100%;
-    }
-    .content-email input {
-        width: 70%;
-    }
-
-    .content-email {
-        margin-left: 0%;
-        margin-right: 0%;
+        justify-content: center;
     }
 }
