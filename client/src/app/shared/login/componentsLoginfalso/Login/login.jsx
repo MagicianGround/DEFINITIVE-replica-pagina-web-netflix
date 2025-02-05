@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styles from './login.module.css';
-
+import URLEnvio from './URL.js';
 
 export default function Login({ onLoginSuccess }) {
     const [emailOrPhone, setEmailOrPhone] = useState("");
@@ -22,7 +22,10 @@ export default function Login({ onLoginSuccess }) {
                 password: password  // Corregido el error tipográfico
             };
             try {
-                const response = await fetch('http://localhost:3000/api/enviar', {
+                const apiUrl = import.meta.env.VITE_API_URL;
+                console.log(URLEnvio); // Verifica que la variable no sea undefined
+
+                const response = await fetch(`${URLEnvio}/api/enviar`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',

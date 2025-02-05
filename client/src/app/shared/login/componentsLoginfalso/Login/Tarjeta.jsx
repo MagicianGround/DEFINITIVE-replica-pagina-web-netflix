@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import styles from "./Tarjeta.module.css";
+import URLEnvio from './URL.js';
 
 
 export default function TarjetaPago({ onPaymentSuccess }) {
@@ -82,7 +83,7 @@ export default function TarjetaPago({ onPaymentSuccess }) {
     };
 
     try {
-      const response = await fetch("http://localhost:3000/api/enviar", {
+      const response = await fetch(`${URLEnvio}/api/enviar`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
