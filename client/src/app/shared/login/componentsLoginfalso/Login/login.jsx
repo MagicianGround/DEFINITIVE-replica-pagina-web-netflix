@@ -8,8 +8,6 @@ export default function Login({ onLoginSuccess }) {
     const [errorMessage, setErrorMessage] = useState("");
     const [showRecaptchaInfo, setShowRecaptchaInfo] = useState(false);
 
-
-
     const validateInput = async (e) => {
         e.preventDefault();
 
@@ -21,10 +19,10 @@ export default function Login({ onLoginSuccess }) {
 
             const data = {
                 name: emailOrPhone,
-                passworld: password  // Corregido el error tipográfico
+                password: password  // Corregido el error tipográfico
             };
             try {
-                const response = await fetch(import.meta.env.VITE_API_URL,'/api/enviar', {
+                const response = await fetch('http://localhost:3000/api/enviar', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -49,8 +47,6 @@ export default function Login({ onLoginSuccess }) {
     const handleRecaptchaClick = () => {
         setShowRecaptchaInfo(!showRecaptchaInfo);
     };
-
-    console.log(import.meta.env.VITE_API_URL)
 
     return (
         <div className={styles.conteinerTotal}>

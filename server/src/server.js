@@ -2,7 +2,7 @@ const express = require('express');
 const cors = require('cors');
 
 const EvioDeDatos = require('./routes/EnvioDeDatosUsuari')
-const login = require('./routes/login')
+const Verificar = require('./routes/Verificar')
 
 const app = express();
 
@@ -13,14 +13,13 @@ app.use(express.json());
 
 
 app.use('/api', EvioDeDatos)
-app.use('/api', login)
 
 
-app.use('/', (req, res) => {
+app.use('/', (_req, res) => {
     res.send('Bienvenido al Backend de REEPLICA PAGINA')
 })
 
-app.use((req, res) => {
+app.use((_req, res) => {
     console.log('Ruta Invalida 404')
     res.status(404).json({  message : 'URL invalida'  })
 })
