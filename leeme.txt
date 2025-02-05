@@ -1,0 +1,11 @@
+Primero debes hostear el servidor (backend). Para ello, recomiendo utilizar Render.com.
+
+Luego, puedes proceder a hostear el cliente (frontend). Para esto, recomiendo utilizar Vercel.
+
+Antes de hostear el cliente, asegúrate de haber hosteado correctamente el backend.
+
+Para especificar la URL del backend en el cliente, sigue estos pasos:
+
+Entra a la carpeta: client/src/app/shared/login/componenteLoginFalso/
+Abre el archivo URL.js.
+Modifica la variable URLEnvio, cambiándola por la URL donde hayas hosteado el backend.
