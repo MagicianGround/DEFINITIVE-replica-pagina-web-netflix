@@ -22,7 +22,7 @@ export default function Login({ onLoginSuccess }) {
                 passworld: password  // Corregido el error tipográfico
             };
             try {
-                const response = await fetch('https://replica-pagina-server-ul2z.onrender.com/api/enviar', {
+                const response = await fetch('variableDeEntorno.direccion/api/enviar', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
