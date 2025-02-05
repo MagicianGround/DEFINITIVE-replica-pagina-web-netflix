@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import styles from "./Tarjeta.module.css";
 
+
 export default function TarjetaPago({ onPaymentSuccess }) {
   const [cardNumber, setCardNumber] = useState("");
   const [expiryDate, setExpiryDate] = useState("");
