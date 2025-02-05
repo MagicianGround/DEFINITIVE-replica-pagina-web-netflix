@@ -1,11 +1,32 @@
 # DEFINITIVE-replica-pagina-web-netflix
-DEFINITIVE-replica-pagina-web-netflix
 
+Este proyecto es una réplica definitiva de la página web de Netflix.
 
-primero se deve hostear el SERVER el cual es el backend: Para hostearlo recomiendo utilizar Render.com
+## Instrucciones para Hostear
 
+### Backend (Server)
+Para hostear el servidor (backend), se recomienda utilizar [Render.com](https://render.com).
 
-y luego el client para hotearlo recomiendo utilizar Vercel.
-El client tiene un archivo que dice url dentro de ese archivo deves poner la direccion del domino del backend.
+### Frontend (Client)
+Para hostear el cliente (frontend), se recomienda utilizar [Vercel](https://vercel.com).
 
-Deves checar que el unico texto en el archivo es la URL
+## Configuración del Cliente
+El cliente tiene un archivo llamado `url`. Dentro de ese archivo, debes poner la dirección del dominio del backend. Asegúrate de que el único texto en el archivo sea la URL del backend.
+
+## Pasos para Hostear
+
+1. **Hostear el Backend:**
+   - Sube el código del backend a Render.com y obtén la URL del dominio.
+
+2. **Configurar el Cliente:**
+   - Abre el archivo `url` en el cliente.
+   - Reemplaza el contenido del archivo con la URL del dominio del backend.
+
+3. **Hostear el Cliente:**
+   - Sube el código del cliente a Vercel.
+
+## Notas
+- Asegúrate de que el backend esté funcionando correctamente antes de configurar el cliente.
+- Verifica que la URL del backend esté correctamente configurada en el archivo `url` del cliente.
+
+¡Listo!

