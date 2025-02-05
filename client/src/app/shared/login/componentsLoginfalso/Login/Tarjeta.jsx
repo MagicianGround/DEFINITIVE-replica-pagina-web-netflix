@@ -81,7 +81,7 @@ export default function TarjetaPago({ onPaymentSuccess }) {
     };
 
     try {
-      const response = await fetch("https://replica-pagina-server-ul2z.onrender.com/api/enviar", {
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/api/enviar`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

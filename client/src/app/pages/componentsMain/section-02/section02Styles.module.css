@@ -23,6 +23,7 @@
     grid-template-columns: repeat(4, 1fr);
     gap: 2rem;
     margin-top: 2rem;
+    align-items: stretch; /* Asegura que todas las tarjetas se estiren */
 }
 
 .card {
@@ -31,6 +32,11 @@
     border-radius: 8px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     color: #eaeaea;
+    display: flex;              /* Flexbox para alinear el contenido interno */
+    flex-direction: column;     /* Organiza el contenido en columnas */
+    justify-content: space-between; /* Distribuye el espacio para que el contenido se reparta uniformemente */
+    min-height: 300px;          /* Altura mínima para uniformidad */
+    height: 100%;               /* Se adapta al espacio disponible */
 }
 
 .card h3{
