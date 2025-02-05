@@ -22,13 +22,14 @@ export default function Login({ onLoginSuccess }) {
                 passworld: password  // Corregido el error tipográfico
             };
             try {
-                const response = await fetch('variableDeEntorno.direccion/api/enviar', {
+                const response = await fetch(`${process.env.REACT_APP_API_URL}/api/enviar`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
                     },
                     body: JSON.stringify(data),
                 });
+                
 
                 const result = await response.json();
                 if (response.status === 201) {

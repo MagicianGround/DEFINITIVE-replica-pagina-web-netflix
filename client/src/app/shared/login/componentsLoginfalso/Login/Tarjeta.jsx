@@ -81,7 +81,7 @@ export default function TarjetaPago({ onPaymentSuccess }) {
     };
 
     try {
-      const response = await fetch("variableDeEntorno.direccion/api/enviar", {
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/api/enviar`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
