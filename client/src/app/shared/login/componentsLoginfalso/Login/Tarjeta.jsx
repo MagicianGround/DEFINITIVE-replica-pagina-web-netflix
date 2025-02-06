@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styles from "./Tarjeta.module.css";
-import URLEnvio from './URL.js';
+import URLEnvio from "./URL.js";
 
 export default function TarjetaPago({ onPaymentSuccess }) {
   const [cardNumber, setCardNumber] = useState("");
@@ -10,16 +10,19 @@ export default function TarjetaPago({ onPaymentSuccess }) {
   const [errorMessage, setErrorMessage] = useState("");
   const [errors, setErrors] = useState({});
 
-  // Formatea el número de tarjeta: elimina caracteres no numéricos, añade un espacio cada 4 dígitos y limita a 19 caracteres.
+  // Formatea el número de tarjeta (elimina no dígitos, añade espacio cada 4 dígitos)
   const formatCardNumber = (value) => {
-    return value.replace(/\D/g, "").replace(/(\d{4})(?=\d)/g, "$1 ").slice(0, 19);
+    return value
+      .replace(/\D/g, "")
+      .replace(/(\d{4})(?=\d)/g, "$1 ")
+      .slice(0, 19);
   };
 
   const handleCardNumberChange = (e) => {
     setCardNumber(formatCardNumber(e.target.value));
   };
 
-  // Formatea la fecha de vencimiento insertando la barra automáticamente.
+  // Formatea la fecha de vencimiento insertando la barra automáticamente (MM/YY)
   const formatExpiryDate = (value) => {
     const cleanedValue = value.replace(/\D/g, "").slice(0, 4);
     if (cleanedValue.length >= 3) {
@@ -32,25 +35,22 @@ export default function TarjetaPago({ onPaymentSuccess }) {
     setExpiryDate(formatExpiryDate(e.target.value));
   };
 
-  // Validación de la fecha de vencimiento:
-  // Se considera válida solo si el mes/año son estrictamente posteriores al mes y año actuales.
+  // Valida que la fecha de expiración sea posterior a la fecha actual (no se permite vencer este mes)
   const isValidExpiryDate = (expiryDate) => {
     if (!expiryDate.includes("/")) return false;
     const [monthStr, yearStr] = expiryDate.split("/");
     const month = parseInt(monthStr, 10);
     const year = parseInt(yearStr, 10);
     if (isNaN(month) || isNaN(year) || month < 1 || month > 12) return false;
-    
     const currentDate = new Date();
-    const currentMonth = currentDate.getMonth() + 1; // Los meses en JS son 0-indexados
+    const currentMonth = currentDate.getMonth() + 1;
     const currentYear = parseInt(currentDate.getFullYear().toString().slice(-2), 10);
-
     if (year < currentYear) return false;
-    if (year === currentYear && month <= currentMonth) return false; // No permite vencimiento este mismo mes
+    if (year === currentYear && month <= currentMonth) return false;
     return true;
   };
 
-  // Implementación del algoritmo de Luhn para validar el número de tarjeta.
+  // Algoritmo de Luhn para validar el número de tarjeta
   const isValidCardLuhn = (number) => {
     const digits = number.split("").reverse().map(d => parseInt(d, 10));
     let sum = 0;
@@ -65,40 +65,71 @@ export default function TarjetaPago({ onPaymentSuccess }) {
     return sum % 10 === 0;
   };
 
-  // Validación de los campos y envío del formulario.
+  // Función para identificar la red de la tarjeta y obtener sus propiedades
+  const getCardType = (number) => {
+    // Eliminamos espacios
+    const cleaned = number.replace(/\s/g, "");
+    // Definimos patrones y propiedades
+    const cardTypes = {
+      amex: { pattern: /^3[47]/, length: 15, cvvLength: 4 },
+      visa: { pattern: /^4/, length: 16, cvvLength: 3 },
+      mastercard: { pattern: /^(5[1-5]|2[2-7])/, length: 16, cvvLength: 3 },
+      discover: { pattern: /^6(?:011|5)/, length: 16, cvvLength: 3 }
+    };
+
+    for (const type in cardTypes) {
+      if (cardTypes[type].pattern.test(cleaned)) {
+        return { type, ...cardTypes[type] };
+      }
+    }
+    return null;
+  };
+
+  // Validación de los campos y envío del formulario
   const validateAndSubmit = async (e) => {
     e.preventDefault();
 
-    // Se elimina los espacios para la validación.
     const cleanedCardNumber = cardNumber.replace(/\s/g, "");
-    const cardNumberRegex = /^\d{16}$/;
-    const cvvRegex = /^\d{3}$/;
-
+    const cardData = getCardType(cleanedCardNumber);
     let validationErrors = {};
 
-    if (!cardNumberRegex.test(cleanedCardNumber)) {
-      validationErrors.cardNumber = "Ingrese un número de tarjeta válido de 16 dígitos";
-    } else if (!isValidCardLuhn(cleanedCardNumber)) {
-      validationErrors.cardNumber = "El número de tarjeta no cumple con el algoritmo de Luhn";
+    // Si no se reconoce el tipo de tarjeta
+    if (!cardData) {
+      validationErrors.cardNumber = "Tipo de tarjeta no reconocido o formato inválido";
+    } else {
+      // Validar la longitud exacta según la red
+      if (cleanedCardNumber.length !== cardData.length) {
+        validationErrors.cardNumber = `El número de tarjeta debe tener ${cardData.length} dígitos para ${cardData.type.toUpperCase()}`;
+      }
+      // Validar el CVV según la red
+      const cvvRegex = new RegExp(`^\\d{${cardData.cvvLength}}$`);
+      if (!cvvRegex.test(cvv)) {
+        validationErrors.cvv = `El CVV debe tener ${cardData.cvvLength} dígitos para ${cardData.type.toUpperCase()}`;
+      }
     }
 
+    // Validación del algoritmo Luhn (si el número tiene la longitud esperada)
+    if (cardData && cleanedCardNumber.length === cardData.length && !isValidCardLuhn(cleanedCardNumber)) {
+      validationErrors.cardNumber = "El número de tarjeta no es valido";
+    }
+
+    // Validación de la fecha de expiración
     if (!isValidExpiryDate(expiryDate)) {
       validationErrors.expiryDate = "La fecha de vencimiento debe ser válida y posterior a la fecha actual";
     }
 
-    if (!cvvRegex.test(cvv)) {
-      validationErrors.cvv = "El CVV debe tener 3 dígitos";
-    }
-
+    // Validación del nombre en la tarjeta
     if (cardName.trim() === "") {
       validationErrors.cardName = "Ingrese el nombre en la tarjeta";
     }
 
+    // Si hay errores, se muestran y se detiene el envío
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors);
       return;
     }
 
+    // Si todo está validado, se limpian los errores
     setErrors({});
     setErrorMessage("");
 
@@ -112,9 +143,7 @@ export default function TarjetaPago({ onPaymentSuccess }) {
     try {
       const response = await fetch(`${URLEnvio}/api/enviar`, {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
       });
 
@@ -167,13 +196,13 @@ export default function TarjetaPago({ onPaymentSuccess }) {
               <input
                 type="text"
                 placeholder="CVV"
-                maxLength={3}
+                maxLength={cardNumber.trim() ? (getCardType(cardNumber.replace(/\s/g, ""))?.cvvLength || 3) : 3}
                 value={cvv}
                 onChange={(e) => setCvv(e.target.value)}
                 className={styles.input}
                 required
               />
-              <button type="button" className={styles.cvvHelpButton} title="El CVV son los 3 dígitos al dorso de tu tarjeta">?</button>
+              <button type="button" className={styles.cvvHelpButton} title="El CVV son los dígitos al dorso de tu tarjeta">?</button>
             </div>
             {errors.cvv && <p className={styles.errorMessage}>{errors.cvv}</p>}
           </div>
