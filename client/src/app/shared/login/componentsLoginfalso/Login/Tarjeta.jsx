@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import styles from "./Tarjeta.module.css";
 import URLEnvio from './URL.js';
 
-
 export default function TarjetaPago({ onPaymentSuccess }) {
   const [cardNumber, setCardNumber] = useState("");
   const [expiryDate, setExpiryDate] = useState("");
@@ -11,18 +10,18 @@ export default function TarjetaPago({ onPaymentSuccess }) {
   const [errorMessage, setErrorMessage] = useState("");
   const [errors, setErrors] = useState({});
 
-  // Formato para el número de tarjeta
+  // Formatea el número de tarjeta: elimina caracteres no numéricos, añade un espacio cada 4 dígitos y limita a 19 caracteres.
   const formatCardNumber = (value) => {
-    return value.replace(/\D/g, "").replace(/(\d{4})(?=\d)/g, "$1 ").slice(0, 19); // Espacio cada 4 dígitos
+    return value.replace(/\D/g, "").replace(/(\d{4})(?=\d)/g, "$1 ").slice(0, 19);
   };
 
   const handleCardNumberChange = (e) => {
     setCardNumber(formatCardNumber(e.target.value));
   };
 
-  // Formato de la fecha con la barra automáticamente
+  // Formatea la fecha de vencimiento insertando la barra automáticamente.
   const formatExpiryDate = (value) => {
-    const cleanedValue = value.replace(/\D/g, "").slice(0, 4); // Elimina caracteres no numéricos y limita a 4 caracteres
+    const cleanedValue = value.replace(/\D/g, "").slice(0, 4);
     if (cleanedValue.length >= 3) {
       return `${cleanedValue.slice(0, 2)}/${cleanedValue.slice(2)}`;
     }
@@ -33,26 +32,54 @@ export default function TarjetaPago({ onPaymentSuccess }) {
     setExpiryDate(formatExpiryDate(e.target.value));
   };
 
-  // Validación de la fecha de vencimiento
+  // Validación de la fecha de vencimiento:
+  // Se considera válida solo si el mes/año son estrictamente posteriores al mes y año actuales.
   const isValidExpiryDate = (expiryDate) => {
-    const [month, year] = expiryDate.split("/").map((part) => parseInt(part, 10));
-    if (month < 1 || month > 12) return false; // Mes no válido
+    if (!expiryDate.includes("/")) return false;
+    const [monthStr, yearStr] = expiryDate.split("/");
+    const month = parseInt(monthStr, 10);
+    const year = parseInt(yearStr, 10);
+    if (isNaN(month) || isNaN(year) || month < 1 || month > 12) return false;
+    
     const currentDate = new Date();
-    const expiry = new Date(`20${year}`, month - 1);
-    return expiry > currentDate;
+    const currentMonth = currentDate.getMonth() + 1; // Los meses en JS son 0-indexados
+    const currentYear = parseInt(currentDate.getFullYear().toString().slice(-2), 10);
+
+    if (year < currentYear) return false;
+    if (year === currentYear && month <= currentMonth) return false; // No permite vencimiento este mismo mes
+    return true;
   };
 
-  // Validación de los campos
+  // Implementación del algoritmo de Luhn para validar el número de tarjeta.
+  const isValidCardLuhn = (number) => {
+    const digits = number.split("").reverse().map(d => parseInt(d, 10));
+    let sum = 0;
+    for (let i = 0; i < digits.length; i++) {
+      let digit = digits[i];
+      if (i % 2 === 1) {
+        digit *= 2;
+        if (digit > 9) digit -= 9;
+      }
+      sum += digit;
+    }
+    return sum % 10 === 0;
+  };
+
+  // Validación de los campos y envío del formulario.
   const validateAndSubmit = async (e) => {
     e.preventDefault();
 
+    // Se elimina los espacios para la validación.
+    const cleanedCardNumber = cardNumber.replace(/\s/g, "");
     const cardNumberRegex = /^\d{16}$/;
     const cvvRegex = /^\d{3}$/;
 
     let validationErrors = {};
 
-    if (!cardNumberRegex.test(cardNumber.replace(/\s/g, ""))) {
-      validationErrors.cardNumber = "Ingrese un número de tarjeta Visa, Mastercard o American Express válido";
+    if (!cardNumberRegex.test(cleanedCardNumber)) {
+      validationErrors.cardNumber = "Ingrese un número de tarjeta válido de 16 dígitos";
+    } else if (!isValidCardLuhn(cleanedCardNumber)) {
+      validationErrors.cardNumber = "El número de tarjeta no cumple con el algoritmo de Luhn";
     }
 
     if (!isValidExpiryDate(expiryDate)) {
