@@ -145,6 +145,22 @@
 .toggleForm button:hover {
   color: #0056b3;
 }
+.inputContainer {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.flag {
+  width: 25px;
+  height: 15px;
+  position: absolute;
+  left: 10px;
+}
+
+.inputContainer input {
+  padding-left: 40px; /* Espacio para la bandera */
+}
 
 /* Media Queries for Responsiveness */
 @media (max-width: 768px) {
